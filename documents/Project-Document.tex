@@ -1,7 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{tikz}
 
-\title{CentralAuth: Microservicio Centralizado de Autenticación y Gestión+ de Usuarios}
+\title{CentralAuth: Microservicio Centralizado de Autenticación y Gestión de Usuarios}
 \author{Oscar Andres Vargas Zazzali}
 \date{25 de junio de 2024}
 
@@ -89,6 +90,209 @@ La visión de \textbf{CentralAuth} es convertirse en una opción popular para la
     \item \textbf{Consistencia en la Experiencia del Usuario:} Provisión de una experiencia de usuario coherente y segura en todas las aplicaciones y servicios de la organización.
 \end{itemize}
 \newpage
+
+\section{Introducción}
+
+\subsection{Contexto del Proyecto}
+
+En la actualidad, muchas organizaciones enfrentan desafíos relacionados con la gestión de usuarios y la autenticación debido a la existencia de múltiples sistemas independientes. Esta fragmentación genera problemas de seguridad, inconsistencias en la experiencia del usuario y un aumento en los costos operativos. Además, la integración de nuevas aplicaciones y servicios a menudo se complica por la falta de un sistema centralizado y eficiente para la gestión de identidades. "CentralAuth" surge como una solución a estos problemas, proporcionando un microservicio centralizado que simplifica y fortalece la autenticación y gestión de usuarios.
+
+\subsection{Objetivos del Proyecto}
+
+\textbf{Objetivo General:}
+
+Desarrollar un microservicio centralizado para la autenticación y gestión de usuarios, que ofrezca seguridad, escalabilidad y eficiencia en la administración de identidades.
+
+\textbf{Objetivos Específicos:}
+
+\begin{itemize}
+    \item Centralización de Datos: Unificar la gestión de usuarios y autenticación en un único sistema centralizado para facilitar el mantenimiento y la administración.
+    \item Seguridad: Implementar medidas de seguridad avanzadas, incluyendo cifrado de contraseñas y autenticación de dos factores (2FA).
+    \item Escalabilidad: Diseñar el sistema de manera que pueda escalar horizontalmente para manejar un gran número de usuarios y solicitudes simultáneas.
+    \item Interoperabilidad: Garantizar que el microservicio pueda integrarse fácilmente con diversas aplicaciones y plataformas mediante API RESTful.
+    \item Experiencia de Usuario: Asegurar una experiencia de usuario intuitiva y fluida tanto para los administradores como para los usuarios finales.
+\end{itemize}
+
+\subsection{Alcance del Proyecto}
+
+El alcance del proyecto "CentralAuth" abarca las siguientes actividades:
+\begin{itemize}
+    \item Diseño del Sistema: Crear la arquitectura del sistema y definir los componentes clave.
+    \item Desarrollo del Microservicio: Implementar las funcionalidades principales.
+    \item Pruebas: Realizar pruebas unitarias, de integración y de aceptación para asegurar la calidad del microservicio.
+    \item Documentación: Documentar la API y proporcionar guías de integración para desarrolladores.
+    \item Despliegue: Implementar el microservicio en un entorno de producción y asegurar su disponibilidad.
+    \item Mantenimiento Inicial: Proveer soporte inicial y realizar ajustes necesarios después del despliegue.
+\end{itemize}
+
+\subsection{Alcance del Producto}
+
+El alcance del producto "CentralAuth" incluye las siguientes funcionalidades principales:
+\begin{itemize}
+    \item Registro de Usuarios: Permitir a los usuarios crear una cuenta con su información básica.
+    \item Inicio de Sesión: Autenticar a los usuarios mediante credenciales (correo electrónico y contraseña).
+    \item Recuperación de Contraseñas: Permitir a los usuarios restablecer su contraseña mediante un correo electrónico de recuperación.
+    \item Generación de Tokens JWT: Emitir tokens JWT para la autenticación segura de los usuarios en las aplicaciones conectadas.
+    \item Verificación de Correo Electrónico: Enviar correos electrónicos de verificación para confirmar la dirección de correo electrónico de los usuarios.
+\end{itemize}
+
+\newpage
+
+\section{Detalles Técnicos del Proyecto}
+
+\subsection{Estructura Técnica General}
+
+\subsubsection{API Gateway}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Autenticación inicial de solicitudes HTTP.
+              \item Enrutamiento de solicitudes a los microservicios correspondientes.
+              \item Implementación de políticas de limitación de tasa para prevenir abusos.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Passport o Laravel Sanctum para la gestión de tokens y autenticación OAuth.
+              \item NGINX como servidor web.
+              \item Redis para almacenamiento en caché de tokens y limitación de tasa.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Servicio de Autenticación}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Manejo de inicio de sesión y cierre de sesión.
+              \item Generación, validación y renovación de tokens JWT.
+              \item Emisión de eventos cuando hay cambios en los usuarios, roles o permisos.
+              \item Provisión de servicios de autenticación para otros sistemas, como monolitos o aplicaciones externas.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Passport para OAuth y JWT.
+              \item Base de datos PostgreSQL para almacenamiento de usuarios y tokens.
+              \item Redis para almacenamiento en caché y gestión de colas.
+              \item Laravel Event Broadcasting para emisión de eventos.
+              \item WebSockets y Redis para transmisión de eventos en tiempo real.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Servicio de Gestión de Usuarios}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item CRUD (Crear, Leer, Actualizar, Eliminar) de cuentas de usuario.
+              \item Validación y normalización de datos de usuario.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Eloquent para ORM.
+              \item PostgreSQL como base de datos principal.
+              \item Laravel Valet para desarrollo local y pruebas.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Servicio de Roles y Permisos}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Asignación y verificación de roles y permisos de usuario.
+              \item Control de acceso basado en roles (RBAC).
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Permission (paquete Spatie) para la gestión de roles y permisos.
+              \item PostgreSQL para almacenamiento de roles y permisos.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Bus de Eventos}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Comunicación asincrónica entre microservicios.
+              \item Emisión y suscripción a eventos relevantes del sistema.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Event Broadcasting con Redis y WebSockets para la transmisión de eventos.
+              \item Supervisor para la gestión de colas y trabajos en segundo plano.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Base de Datos Central}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Almacenamiento de datos relacionados con usuarios, roles y permisos.
+              \item Garantía de integridad y consistencia de datos.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item PostgreSQL como base de datos principal.
+              \item Configuración de replicación y clustering para alta disponibilidad.
+          \end{itemize}
+\end{itemize}
+
+\subsection{Interacción entre Componentes}
+
+\subsubsection{Flujo de Solicitudes HTTP}
+\begin{itemize}
+    \item El \textbf{API Gateway} (NGINX) recibe las solicitudes y las autentica con el \textbf{Servicio de Autenticación} (usando Laravel Passport). Luego, enruta las solicitudes autenticadas al microservicio adecuado.
+    \item \textbf{Servicio de Autenticación}: Verifica credenciales y genera tokens JWT. Utiliza Laravel Passport para la gestión de tokens.
+    \item \textbf{Servicio de Gestión de Usuarios}: Procesa operaciones CRUD interactuando directamente con la \textbf{Base de Datos Central}.
+\end{itemize}
+
+\subsubsection{Control de Acceso}
+\begin{itemize}
+    \item \textbf{Servicio de Roles y Permisos}: Verifica permisos en cada solicitud utilizando Laravel Permission, asegurando que el usuario tenga el acceso adecuado. Este servicio se comunica constantemente con el \textbf{Servicio de Gestión de Usuarios} para asegurar que cualquier cambio en los roles y permisos se refleje en tiempo real.
+    \item \textbf{Bus de Eventos}: Facilita la emisión de eventos cuando se crean, actualizan o eliminan usuarios y sus roles/permisos, permitiendo que otras aplicaciones se actualicen en tiempo real mediante Laravel Event Broadcasting.
+\end{itemize}
+
+\subsubsection{Comunicación Asincrónica}
+\begin{itemize}
+    \item \textbf{Bus de Eventos}: Utiliza Redis y WebSockets para permitir que las aplicaciones se suscriban a eventos relevantes y manejar datos de usuarios eficientemente. Los eventos incluyen, pero no se limitan a, la creación, modificación y eliminación de usuarios y sus roles/permisos.
+\end{itemize}
+
+\subsection{Integración con Otros Sistemas}
+
+El Servicio de Autenticación no solo se utiliza para los microservicios dentro del sistema, sino que también proporciona servicios de autenticación y autorización para sistemas externos, como un monolito o aplicaciones de terceros. Esto se logra mediante la provisión de endpoints de autenticación que permiten a estos sistemas:
+\begin{itemize}
+    \item Validar tokens JWT emitidos por el Servicio de Autenticación.
+    \item Consultar roles y permisos de usuarios para implementar control de acceso interno.
+    \item Integrarse fácilmente mediante API RESTful, asegurando que cualquier sistema pueda verificar la autenticidad de los usuarios y sus permisos antes de permitir el acceso a recursos internos.
+\end{itemize}
+
+\subsection{Ampliación de la Interacción entre Componentes}
+
+Para asegurar una comunicación efectiva y la actualización en tiempo real de los datos, se han implementado varios patrones de diseño y tecnologías:
+\begin{itemize}
+    \item \textbf{Patrón de Saga}: Para gestionar transacciones distribuidas entre los servicios, asegurando la consistencia eventual.
+    \item \textbf{CQRS (Command Query Responsibility Segregation)}: Para separar las operaciones de lectura y escritura, optimizando el rendimiento.
+    \item \textbf{Event Sourcing}: Para registrar todos los cambios de estado como una secuencia de eventos, facilitando el monitoreo y la auditoría.
+\end{itemize}
+
+\subsection{Escalabilidad y Disponibilidad}
+
+Cada componente del sistema está diseñado para ser escalable de manera independiente:
+\begin{itemize}
+    \item \textbf{API Gateway} y \textbf{Servicios de Autenticación}: Pueden escalar horizontalmente mediante balanceadores de carga.
+    \item \textbf{Base de Datos Central}: Configurada con replicación para alta disponibilidad y recuperación ante fallos.
+\end{itemize}
+
+\subsection{Seguridad}
+
+Se han implementado varias capas de seguridad para proteger los datos y las comunicaciones:
+\begin{itemize}
+    \item \textbf{Cifrado de datos en tránsito y en reposo}.
+    \item \textbf{Autenticación multifactor (MFA)} para acceso de usuarios sensibles.
+    \item \textbf{Auditorías y registros de actividad} para monitorear accesos y cambios.
+\end{itemize}
+
+
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{arrow} = [thick,->,>=stealth]
 
 
 \end{document}
