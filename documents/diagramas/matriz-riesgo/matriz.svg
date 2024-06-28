@@ -1,0 +1,57 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definición de los degradados -->
+  <defs>
+    <linearGradient id="gradGreenYellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:green;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:yellow;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradYellowOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:yellow;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:orange;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradOrangeRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:orange;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:red;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Título de la matriz -->
+  <text x="400" y="50" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">Matriz de Riesgo</text>
+  
+  <!-- Eje Y -->
+  <text x="40" y="180" font-family="Verdana" font-size="18" fill="black" text-anchor="middle" transform="rotate(-90 40,180)">Bajo (1)</text>
+  <text x="40" y="380" font-family="Verdana" font-size="18" fill="black" text-anchor="middle" transform="rotate(-90 40,380)">Moderado (2)</text>
+  <text x="40" y="580" font-family="Verdana" font-size="18" fill="black" text-anchor="middle" transform="rotate(-90 40,580)">Alto (3)</text>
+  <text x="40" y="350" font-family="Verdana" font-size="18" fill="black" text-anchor="middle" transform="rotate(-90 40,380)">Impacto</text>
+  
+  <!-- Eje X -->
+  <text x="200" y="750" font-family="Verdana" font-size="18" fill="black" text-anchor="middle">Baja (1)</text>
+  <text x="400" y="750" font-family="Verdana" font-size="18" fill="black" text-anchor="middle">Media (2)</text>
+  <text x="600" y="750" font-family="Verdana" font-size="18" fill="black" text-anchor="middle">Alta (3)</text>
+  <text x="400" y="780" font-family="Verdana" font-size="18" fill="black" text-anchor="middle">Probabilidad</text>
+  
+  <!-- Matriz de Riesgo -->
+  <!-- Fila 1 -->
+  <rect x="100" y="100" width="200" height="200" fill="green" stroke="black" stroke-width="1" />
+  <text x="200" y="200" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">1</text>
+  <rect x="300" y="100" width="200" height="200" fill="url(#gradGreenYellow)" stroke="black" stroke-width="1" />
+  <text x="400" y="200" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">2</text>
+  <rect x="500" y="100" width="200" height="200" fill="yellow" stroke="black" stroke-width="1" />
+  <text x="600" y="200" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">3</text>
+  
+  <!-- Fila 2 -->
+  <rect x="100" y="300" width="200" height="200" fill="url(#gradGreenYellow)" stroke="black" stroke-width="1" />
+  <text x="200" y="400" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">2</text>
+  <rect x="300" y="300" width="200" height="200" fill="yellow" stroke="black" stroke-width="1" />
+  <text x="400" y="400" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">4</text>
+  <rect x="500" y="300" width="200" height="200" fill="url(#gradYellowOrange)" stroke="black" stroke-width="1" />
+  <text x="600" y="400" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">6</text>
+  
+  <!-- Fila 3 -->
+  <rect x="100" y="500" width="200" height="200" fill="yellow" stroke="black" stroke-width="1" />
+  <text x="200" y="600" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">3</text>
+  <rect x="300" y="500" width="200" height="200" fill="url(#gradYellowOrange)" stroke="black" stroke-width="1" />
+  <text x="400" y="600" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">6</text>
+  <rect x="500" y="500" width="200" height="200" fill="red" stroke="black" stroke-width="1" />
+  <text x="600" y="600" font-family="Verdana" font-size="24" fill="black" text-anchor="middle">9</text>
+</svg>
