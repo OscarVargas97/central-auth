@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto Gantt</title>
+    <link rel="stylesheet" href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css">
+    <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+</head>
+
+<body>
+    <div id="gantt_here" style="width:100%; height:600px;"></div>
+    <script>
+        gantt.config.columns = [
+            { name: "text", label: "Tarea", width: "*", tree: true },
+            { name: "start_date", label: "Inicio", align: "center" },
+            { name: "duration", label: "Duración", align: "center" },
+            { name: "add", label: "", width: 44 }
+        ];
+
+        gantt.init("gantt_here");
+
+        var tasks = {
+            data: [
+                { id: 1, text: "Fase de Diseño y Planificación", start_date: "25-06-2024", duration: 14, progress: 0.6, open: true },
+                { id: 2, text: "Definición de requisitos", start_date: "25-06-2024", duration: 3, parent: 1 },
+                { id: 3, text: "Diseño de la arquitectura del sistema", start_date: "28-06-2024", duration: 6, parent: 1 },
+                { id: 4, text: "Diseño de la base de datos y planificación de microservicios", start_date: "04-07-2024", duration: 6, parent: 1 },
+                { id: 5, text: "Planificación del cronograma detallado y asignación de recursos y roles", start_date: "04-07-2024", duration: 6, parent: 1 },
+
+                { id: 6, text: "Fase de Desarrollo (Backend)", start_date: "10-07-2024", duration: 42, progress: 0.4, open: true },
+                { id: 7, text: "Iteración 1: Registro de Usuarios (Backend)", start_date: "10-07-2024", duration: 7, parent: 6 },
+                { id: 8, text: "Iteración 2: Gestión de Usuarios (Backend)", start_date: "17-07-2024", duration: 7, parent: 6 },
+                { id: 9, text: "Iteración 3: Inicio de Sesión (Backend)", start_date: "24-07-2024", duration: 7, parent: 6 },
+                { id: 10, text: "Iteración 4: Recuperación de Contraseñas (Backend)", start_date: "31-07-2024", duration: 7, parent: 6 },
+                { id: 11, text: "Iteración 5: Generación de Tokens JWT (Backend)", start_date: "07-08-2024", duration: 7, parent: 6 },
+                { id: 12, text: "Iteración 6: Verificación de Correo Electrónico (Backend)", start_date: "14-08-2024", duration: 7, parent: 6 },
+
+                { id: 13, text: "Fase de Desarrollo (Frontend)", start_date: "21-08-2024", duration: 21, progress: 0.5, open: true },
+                { id: 14, text: "Iteración 7: Registro de Usuarios (Frontend)", start_date: "21-08-2024", duration: 7, parent: 13 },
+                { id: 15, text: "Iteración 8: Inicio de Sesión (Frontend)", start_date: "28-08-2024", duration: 7, parent: 13 },
+                { id: 16, text: "Iteración 9: Recuperación de Contraseñas (Frontend)", start_date: "04-09-2024", duration: 7, parent: 13 },
+
+                { id: 17, text: "Fase de Despliegue", start_date: "11-09-2024", duration: 7, progress: 0.7, open: true },
+                { id: 18, text: "Despliegue en el entorno de producción", start_date: "11-09-2024", duration: 3, parent: 17 },
+                { id: 19, text: "Verificación de despliegue", start_date: "14-09-2024", duration: 4, parent: 17 }
+            ]
+        };
+
+        gantt.parse(tasks);
+    </script>
+</body>
+
+</html>

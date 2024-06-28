@@ -1,0 +1,1011 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+
+\title{CentralAuth: Microservicio Centralizado de Autenticación y Gestión de Usuarios}
+\author{Oscar Andres Vargas Zazzali}
+\date{25 de junio de 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \textbf{Versión del Documento: 1.0}
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Resumen Ejecutivo}
+
+El proyecto \textbf{CentralAuth} consiste en desarrollar un microservicio centralizado para la autenticación y gestión de usuarios. Este microservicio permitirá la centralización de los datos de usuarios, mejorando la seguridad y eficiencia en la gestión de identidades. Además, ofrecerá funcionalidades como el registro de usuarios, inicio de sesión, recuperación de contraseñas, generación de tokens JWT y verificación de correo electrónico. El objetivo es proporcionar una solución escalable y reutilizable que pueda integrarse fácilmente en múltiples aplicaciones y servicios.
+
+\subsection{Objetivos del Proyecto}
+
+\begin{itemize}
+    \item \textbf{Objetivo General:} Desarrollar un microservicio centralizado para la autenticación y gestión de usuarios, que ofrezca seguridad, escalabilidad y eficiencia en la administración de identidades.
+    \item \textbf{Objetivos Específicos:}
+          \begin{itemize}
+              \item Centralización de Datos: Unificar la gestión de usuarios y autenticación en un único sistema centralizado para facilitar el mantenimiento y la administración.
+              \item Seguridad: Implementar medidas de seguridad avanzadas, incluyendo cifrado de contraseñas, autenticación de dos factores (2FA) y protección contra ataques comunes como el phishing y el brute force.
+              \item Escalabilidad: Diseñar el sistema de manera que pueda escalar horizontalmente para manejar un gran número de usuarios y solicitudes simultáneas.
+              \item Interoperabilidad: Garantizar que el microservicio pueda integrarse fácilmente con diversas aplicaciones y plataformas mediante API RESTful.
+              \item Experiencia de Usuario: Asegurar una experiencia de usuario intuitiva y fluida tanto para los administradores como para los usuarios finales.
+          \end{itemize}
+\end{itemize}
+
+\subsection{Importancia del Proyecto}
+
+El proyecto \textbf{CentralAuth} es crucial por varias razones:
+
+\begin{itemize}
+    \item \textbf{Seguridad Mejorada:} Al centralizar la autenticación y gestión de usuarios, se pueden implementar medidas de seguridad robustas de manera consistente en todas las aplicaciones y servicios que utilicen el microservicio. Esto reduce el riesgo de brechas de seguridad y garantiza una protección uniforme de los datos de los usuarios.
+    \item \textbf{Eficiencia Operativa:} Centralizar la administración de usuarios permite un manejo más eficiente de las identidades, roles y permisos. Los administradores pueden gestionar todos los usuarios desde un único punto, reduciendo la redundancia y el esfuerzo manual asociado con la gestión de múltiples sistemas de autenticación.
+    \item \textbf{Escalabilidad y Flexibilidad:} Al ser un microservicio independiente, \textbf{CentralAuth} puede escalarse horizontalmente para manejar un aumento en la carga de trabajo, lo que es esencial para aplicaciones que experimentan un crecimiento rápido en el número de usuarios.
+    \item \textbf{Reutilización y Consistencia:} Este microservicio puede ser reutilizado por diferentes aplicaciones dentro de una organización, asegurando que todas ellas sigan las mismas políticas de autenticación y gestión de usuarios. Esto promueve la consistencia y facilita el cumplimiento de normativas y estándares de seguridad.
+    \item \textbf{Mejora de la Experiencia del Usuario:} Al ofrecer una autenticación rápida y segura, \textbf{CentralAuth} mejora la experiencia del usuario final, lo que puede aumentar la satisfacción y retención de usuarios en las aplicaciones que integren este servicio.
+\end{itemize}
+
+\subsection{Resumen de los Puntos Principales del Documento}
+
+\begin{itemize}
+    \item \textbf{Visión del Proyecto:} Descripción inspiradora del objetivo a largo plazo del proyecto y cómo contribuirá al éxito de la organización.
+    \item \textbf{Introducción:} Contexto del proyecto, objetivos generales y específicos, y alcance del proyecto.
+    \item \textbf{Descripción del Proyecto:} Detalles técnicos del proyecto, funcionalidades clave, tecnologías a utilizar y arquitectura del sistema.
+    \item \textbf{Planificación del Proyecto:} Cronograma detallado, fases del proyecto y entregables de cada fase.
+    \item \textbf{Recursos y Roles:} Equipo del proyecto y sus responsabilidades, y recursos necesarios.
+    \item \textbf{Análisis de Riesgos:} Identificación de riesgos potenciales y plan de mitigación y contingencia.
+    \item \textbf{Requisitos del Sistema:} Requisitos funcionales, no funcionales y de hardware y software.
+    \item \textbf{Diseño del Sistema:} Diagramas de flujo, de entidad-relación, de clases y arquitectura de la base de datos.
+    \item \textbf{Plan de Desarrollo:} Metodología de desarrollo, estrategias de implementación, plan de integración y pruebas.
+    \item \textbf{Plan de Pruebas:} Tipos de pruebas a realizar, casos de prueba y plan de gestión de defectos.
+    \item \textbf{Plan de Implementación:} Estrategias de despliegue, plan de capacitación para usuarios finales y plan de soporte post-implementación.
+    \item \textbf{Plan de Mantenimiento:} Estrategias de mantenimiento y actualización, y plan de gestión de cambios.
+    \item \textbf{Conclusiones:} Resumen de los puntos clave y próximos pasos.
+    \item \textbf{Anexos:} Documentación adicional y referencias.
+\end{itemize}
+
+\section{Visión del Proyecto}
+
+\subsection{Descripción Inspiradora del Objetivo a Largo Plazo del Proyecto}
+
+La visión de \textbf{CentralAuth} es convertirse en una opción popular para la autenticación y gestión de usuarios dentro de la comunidad de desarrolladores. Aspiramos a crear un sistema que centralice la gestión de identidades de manera eficiente y segura, ofreciendo escalabilidad y flexibilidad para satisfacer las necesidades de diversas aplicaciones y servicios. Nuestro objetivo es proporcionar una solución confiable y accesible que sea ampliamente adoptada por desarrolladores y organizaciones, facilitando la administración de usuarios y mejorando la seguridad en el acceso a sistemas.
+
+\subsection{Cómo el Proyecto Contribuirá al Éxito de la Organización}
+
+\textbf{CentralAuth} contribuirá al éxito de la organización al proporcionar una solución centralizada y eficiente para la gestión de usuarios y la autenticación. Esto permitirá a las organizaciones reducir los costos asociados con la implementación y el mantenimiento de múltiples sistemas de autenticación, mejorar la seguridad de los datos de usuario y garantizar una experiencia de usuario coherente en todas sus aplicaciones y servicios. Además, al facilitar la integración con diversas plataformas, \textbf{CentralAuth} permitirá a las organizaciones adaptarse rápidamente a nuevas tecnologías y demandas del mercado, fomentando la innovación y el crecimiento.
+
+\subsection{Impacto Esperado y Beneficios a Largo Plazo}
+
+\textbf{CentralAuth} se espera que tenga un impacto significativo en la eficiencia operativa y la seguridad de las organizaciones que lo adopten. A largo plazo, los beneficios incluyen:
+
+\begin{itemize}
+    \item \textbf{Reducción de Costos:} Menores costos de implementación y mantenimiento al centralizar la gestión de autenticación y usuarios en un solo sistema.
+    \item \textbf{Mejora en la Seguridad:} Mayor protección de los datos de usuario mediante la implementación de medidas de seguridad avanzadas y la reducción de vulnerabilidades asociadas con la gestión dispersa de identidades.
+    \item \textbf{Flexibilidad y Escalabilidad:} Capacidad para escalar horizontalmente y adaptarse a las necesidades crecientes de usuarios y aplicaciones, garantizando un rendimiento óptimo.
+    \item \textbf{Facilidad de Integración:} Integración sencilla con múltiples aplicaciones y plataformas, facilitando la expansión y la adopción de nuevas tecnologías.
+    \item \textbf{Consistencia en la Experiencia del Usuario:} Provisión de una experiencia de usuario coherente y segura en todas las aplicaciones y servicios de la organización.
+\end{itemize}
+\newpage
+
+\section{Introducción}
+
+\subsection{Contexto del Proyecto}
+
+En la actualidad, muchas organizaciones enfrentan desafíos relacionados con la gestión de usuarios y la autenticación debido a la existencia de múltiples sistemas independientes. Esta fragmentación genera problemas de seguridad, inconsistencias en la experiencia del usuario y un aumento en los costos operativos. Además, la integración de nuevas aplicaciones y servicios a menudo se complica por la falta de un sistema centralizado y eficiente para la gestión de identidades. "CentralAuth" surge como una solución a estos problemas, proporcionando un microservicio centralizado que simplifica y fortalece la autenticación y gestión de usuarios.
+
+\subsection{Objetivos del Proyecto}
+
+\textbf{Objetivo General:}
+
+Desarrollar un microservicio centralizado para la autenticación y gestión de usuarios, que ofrezca seguridad, escalabilidad y eficiencia en la administración de identidades.
+
+\textbf{Objetivos Específicos:}
+
+\begin{itemize}
+    \item Centralización de Datos: Unificar la gestión de usuarios y autenticación en un único sistema centralizado para facilitar el mantenimiento y la administración.
+    \item Seguridad: Implementar medidas de seguridad avanzadas, incluyendo cifrado de contraseñas y autenticación de dos factores (2FA).
+    \item Escalabilidad: Diseñar el sistema de manera que pueda escalar horizontalmente para manejar un gran número de usuarios y solicitudes simultáneas.
+    \item Interoperabilidad: Garantizar que el microservicio pueda integrarse fácilmente con diversas aplicaciones y plataformas mediante API RESTful.
+    \item Experiencia de Usuario: Asegurar una experiencia de usuario intuitiva y fluida tanto para los administradores como para los usuarios finales.
+\end{itemize}
+
+\subsection{Alcance del Proyecto}
+
+El alcance del proyecto "CentralAuth" abarca las siguientes actividades:
+\begin{itemize}
+    \item Diseño del Sistema: Crear la arquitectura del sistema y definir los componentes clave.
+    \item Desarrollo del Microservicio: Implementar las funcionalidades principales.
+    \item Pruebas: Realizar pruebas unitarias, de integración y de aceptación para asegurar la calidad del microservicio.
+    \item Documentación: Documentar la API y proporcionar guías de integración para desarrolladores.
+    \item Despliegue: Implementar el microservicio en un entorno de producción y asegurar su disponibilidad.
+\end{itemize}
+
+\subsection{Alcance del Producto}
+
+El alcance del producto "CentralAuth" incluye las siguientes funcionalidades principales:
+\begin{itemize}
+    \item Registro de Usuarios: Permitir a los usuarios crear una cuenta con su información básica.
+    \item Inicio de Sesión: Autenticar a los usuarios mediante credenciales (correo electrónico y contraseña).
+    \item Recuperación de Contraseñas: Permitir a los usuarios restablecer su contraseña mediante un correo electrónico de recuperación.
+    \item Generación de Tokens JWT: Emitir tokens JWT para la autenticación segura de los usuarios en las aplicaciones conectadas.
+    \item Verificación de Correo Electrónico: Enviar correos electrónicos de verificación para confirmar la dirección de correo electrónico de los usuarios.
+\end{itemize}
+\newpage
+
+\section{Descripción del Proyecto}
+
+\subsection{Detalles Técnicos del Proyecto}
+
+\subsubsection{Estructura Técnica General}
+
+\paragraph{API Gateway}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Autenticación inicial de solicitudes HTTP.
+              \item Enrutamiento de solicitudes a los microservicios correspondientes.
+              \item Implementación de políticas de limitación de tasa para prevenir abusos.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Passport o Laravel Sanctum para la gestión de tokens y autenticación OAuth.
+              \item NGINX como servidor web.
+              \item Redis para almacenamiento en caché de tokens y limitación de tasa.
+          \end{itemize}
+\end{itemize}
+
+\paragraph{Servicio de Autenticación}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Manejo de inicio de sesión y cierre de sesión.
+              \item Generación, validación y renovación de tokens JWT.
+              \item Emisión de eventos de desautenticación global.
+              \item Provisión de servicios de autenticación para otros sistemas, como monolitos o aplicaciones externas.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Passport para OAuth y JWT.
+              \item Base de datos PostgreSQL para almacenamiento de usuarios y tokens.
+              \item Redis para almacenamiento en caché y gestión de colas.
+              \item Laravel Event Broadcasting para emisión de eventos.
+              \item WebSockets y Redis para transmisión de eventos en tiempo real.
+          \end{itemize}
+\end{itemize}
+
+\paragraph{Servicio de Gestión de Usuarios}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item CRUD (Crear, Leer, Actualizar, Eliminar) de cuentas de usuario.
+              \item Validación y normalización de datos de usuario.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Eloquent para ORM.
+              \item PostgreSQL como base de datos principal.
+              \item Laravel Valet para desarrollo local y pruebas.
+          \end{itemize}
+\end{itemize}
+
+\paragraph{Bus de Eventos}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Comunicación asincrónica entre microservicios.
+              \item Emisión y suscripción a eventos relevantes del sistema.
+              \item Manejo de eventos de desautenticación global para invalidar sesiones en todas las plataformas.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item Laravel Event Broadcasting con Redis y WebSockets para la transmisión de eventos.
+              \item Supervisor para la gestión de colas y trabajos en segundo plano.
+          \end{itemize}
+\end{itemize}
+
+\paragraph{Base de Datos Central}
+\begin{itemize}
+    \item \textbf{Funciones:}
+          \begin{itemize}
+              \item Almacenamiento de datos relacionados con usuarios y autenticación.
+              \item Garantía de integridad y consistencia de datos.
+          \end{itemize}
+    \item \textbf{Tecnologías:}
+          \begin{itemize}
+              \item PostgreSQL como base de datos principal.
+              \item Configuración de replicación y clustering para alta disponibilidad.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Interacción entre Componentes}
+\begin{itemize}
+    \item \textbf{Flujo de Solicitudes HTTP:}
+          \begin{itemize}
+              \item El \textbf{API Gateway} (NGINX) recibe las solicitudes y las autentica con el \textbf{Servicio de Autenticación} (usando Laravel Passport). Luego, enruta las solicitudes autenticadas al microservicio adecuado.
+              \item \textbf{Servicio de Autenticación}: Verifica credenciales y genera tokens JWT. Utiliza Laravel Passport para la gestión de tokens.
+              \item \textbf{Servicio de Gestión de Usuarios}: Procesa operaciones CRUD interactuando directamente con la \textbf{Base de Datos Central}.
+          \end{itemize}
+    \item \textbf{Control de Acceso:}
+          \begin{itemize}
+              \item \textbf{Bus de Eventos}: Facilita la emisión de eventos cuando se crean, actualizan o eliminan usuarios, permitiendo que otras aplicaciones se actualicen en tiempo real mediante Laravel Event Broadcasting.
+          \end{itemize}
+    \item \textbf{Comunicación Asincrónica:}
+          \begin{itemize}
+              \item \textbf{Bus de Eventos}: Utiliza Redis y WebSockets para permitir que las aplicaciones se suscriban a eventos relevantes y manejar datos de usuarios eficientemente. Los eventos incluyen, pero no se limitan a, la creación, modificación y eliminación de usuarios.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Integración con Otros Sistemas}
+\begin{itemize}
+    \item El Servicio de Autenticación no solo se utiliza para los microservicios dentro del sistema, sino que también proporciona servicios de autenticación y autorización para sistemas externos, como un monolito o aplicaciones de terceros. Esto se logra mediante la provisión de endpoints de autenticación que permiten a estos sistemas:
+          \begin{itemize}
+              \item Validar tokens JWT emitidos por el Servicio de Autenticación.
+              \item Consultar roles y permisos de usuarios para implementar control de acceso interno.
+              \item Integrarse fácilmente mediante API RESTful, asegurando que cualquier sistema pueda verificar la autenticidad de los usuarios y sus permisos antes de permitir el acceso a recursos internos.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Ampliación de la Interacción entre Componentes}
+\begin{itemize}
+    \item Para asegurar una comunicación efectiva y la actualización en tiempo real de los datos, se han implementado varios patrones de diseño y tecnologías:
+          \begin{itemize}
+              \item \textbf{Patrón de Saga}: Para gestionar transacciones distribuidas entre los servicios, asegurando la consistencia eventual.
+              \item \textbf{CQRS (Command Query Responsibility Segregation)}: Para separar las operaciones de lectura y escritura, optimizando el rendimiento.
+              \item \textbf{Event Sourcing}: Para registrar todos los cambios de estado como una secuencia de eventos, facilitando el monitoreo y la auditoría.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Escalabilidad y Disponibilidad}
+\begin{itemize}
+    \item Cada componente del sistema está diseñado para ser escalable de manera independiente:
+          \begin{itemize}
+              \item \textbf{API Gateway} y \textbf{Servicios de Autenticación}: Pueden escalar horizontalmente mediante balanceadores de carga.
+              \item \textbf{Base de Datos Central}: Configurada con replicación para alta disponibilidad y recuperación ante fallos.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Seguridad}
+\begin{itemize}
+    \item Se han implementado varias capas de seguridad para proteger los datos y las comunicaciones:
+          \begin{itemize}
+              \item \textbf{Cifrado de datos en tránsito y en reposo}.
+              \item \textbf{Autenticación multifactor (MFA)} para acceso de usuarios sensibles.
+              \item \textbf{Auditorías y registros de actividad} para monitorear accesos y cambios.
+          \end{itemize}
+\end{itemize}
+
+\subsection{Funcionalidades Clave}
+
+\begin{itemize}
+    \item \textbf{Registro de Usuarios:} Permitir a las aplicaciones cliente registrar nuevos usuarios en el sistema.
+          \begin{itemize}
+              \item Los clientes pueden enviar la información del usuario, como nombre, correo electrónico y contraseña, y recibir una confirmación del registro.
+          \end{itemize}
+    \item \textbf{Inicio de Sesión:} Permitir a las aplicaciones cliente autenticar a los usuarios existentes.
+          \begin{itemize}
+              \item Las aplicaciones pueden enviar las credenciales del usuario y recibir una confirmación de autenticación si las credenciales son correctas.
+          \end{itemize}
+    \item \textbf{Recuperación de Contraseñas:} Proveer una función para que las aplicaciones cliente inicien el proceso de recuperación de contraseña.
+          \begin{itemize}
+              \item Las aplicaciones pueden solicitar el restablecimiento de la contraseña y enviar un enlace de recuperación al correo electrónico del usuario.
+          \end{itemize}
+    \item \textbf{Generación de Tokens JWT:} Proveer una función para emitir y renovar tokens JWT para la autenticación segura de los usuarios.
+          \begin{itemize}
+              \item Las aplicaciones cliente pueden solicitar la emisión de tokens al iniciar sesión y la renovación de tokens cuando sea necesario.
+          \end{itemize}
+    \item \textbf{Verificación de Correo Electrónico:} Proveer una función para que las aplicaciones cliente envíen correos electrónicos de verificación a los usuarios.
+          \begin{itemize}
+              \item Los clientes pueden iniciar el envío de correos de verificación y confirmar la verificación de la dirección de correo electrónico del usuario.
+          \end{itemize}
+    \item \textbf{Autenticación Multifactor (2FA):} Proveer una función para que las aplicaciones cliente activen y gestionen la autenticación de dos factores para los usuarios.
+          \begin{itemize}
+              \item Las aplicaciones pueden habilitar el 2FA, enviar códigos de verificación y validar estos códigos para el acceso seguro.
+          \end{itemize}
+    \item \textbf{Gestión de Sesiones:} Proveer una función para que las aplicaciones cliente monitoricen y gestionen las sesiones de usuario.
+          \begin{itemize}
+              \item Los clientes pueden consultar sesiones activas, cerrar sesiones y gestionar la duración de las sesiones.
+          \end{itemize}
+    \item \textbf{Interoperabilidad con Otras Aplicaciones:} Asegurar que el microservicio puede integrarse fácilmente con diversas aplicaciones.
+          \begin{itemize}
+              \item Ofrecer endpoints estándar para que las aplicaciones puedan autenticar usuarios y consultar roles y permisos específicos de cada aplicación.
+          \end{itemize}
+    \item \textbf{Desautenticación Global:} Permitir a las aplicaciones cliente cerrar la sesión de un usuario en todas las plataformas de manera coordinada.
+          \begin{itemize}
+              \item Emitir eventos de desautenticación global que invaliden sesiones en todas las aplicaciones suscritas.
+          \end{itemize}
+\end{itemize}
+
+\subsection{Tecnologías a Utilizar}
+
+\subsubsection{Lenguajes de Programación}
+\begin{itemize}
+    \item \textbf{PHP:} Utilizado para desarrollar el backend del microservicio de autenticación.
+    \item \textbf{JavaScript:} Utilizado para el desarrollo del frontend.
+\end{itemize}
+
+\subsubsection{Frameworks}
+\begin{itemize}
+    \item \textbf{Laravel:} Framework de PHP utilizado para el desarrollo del backend.
+    \item \textbf{Vue.js:} Framework de JavaScript utilizado para el desarrollo del frontend.
+\end{itemize}
+
+\subsubsection{Bases de Datos}
+\begin{itemize}
+    \item \textbf{PostgreSQL:} Base de datos relacional utilizada para almacenar los datos de los usuarios y tokens de autenticación.
+\end{itemize}
+
+\subsubsection{Servidores y Hosting}
+\begin{itemize}
+    \item \textbf{NGINX:} Utilizado como servidor web y balanceador de carga.
+    \item \textbf{AWS:} Servicios de Amazon Web Services para hosting y escalabilidad.
+\end{itemize}
+
+\subsubsection{Seguridad}
+\begin{itemize}
+    \item \textbf{Cifrado:} TLS/SSL para cifrado de datos en tránsito.
+    \item \textbf{Autenticación Multifactor (2FA):} Implementación de 2FA para seguridad adicional.
+    \item \textbf{OAuth y JWT:} Para la gestión de tokens y autenticación segura.
+\end{itemize}
+
+\subsubsection{Herramientas de Desarrollo y CI/CD}
+\begin{itemize}
+    \item \textbf{GitHub:} Repositorio de código y gestión de versiones.
+    \item \textbf{Jenkins:} Herramienta de integración continua y despliegue continuo.
+\end{itemize}
+
+\subsubsection{Servicios de Mensajería}
+\begin{itemize}
+    \item \textbf{Redis:} Utilizado para la gestión de colas y almacenamiento en caché.
+    \item \textbf{RabbitMQ:} Utilizado para la comunicación asincrónica entre microservicios.
+\end{itemize}
+
+\subsubsection{Monitoreo y Logging}
+\begin{itemize}
+    \item \textbf{ELK Stack:} ElasticSearch, Logstash y Kibana para monitoreo y análisis de logs.
+    \item \textbf{Prometheus y Grafana:} Para monitoreo del rendimiento y visualización de métricas.
+\end{itemize}
+\newpage
+
+\section{Planificación del Proyecto}
+
+\subsection{Cronograma Detallado (Timeline)}
+
+\begin{itemize}
+    \item \textbf{Fase de Diseño y Planificación}
+          \begin{itemize}
+              \item \textbf{Inicio}: 25 de junio de 2024
+              \item \textbf{Duración}: 2 semanas
+              \item \textbf{Fin}: 9 de julio de 2024
+              \item \textbf{Actividades Principales}:
+                    \begin{itemize}
+                        \item Definición de requisitos (25 de junio - 27 de junio)
+                        \item Diseño de la arquitectura del sistema (28 de junio - 3 de julio)
+                        \item Diseño de la base de datos y planificación de microservicios (4 de julio - 9 de julio)
+                        \item Planificación del cronograma detallado y asignación de recursos y roles (4 de julio - 9 de julio)
+                    \end{itemize}
+              \item \textbf{Entregables}:
+                    \begin{itemize}
+                        \item Documentación de requisitos
+                        \item Diagramas de arquitectura del sistema
+                        \item Diseño de la base de datos
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Fase de Desarrollo (Backend)}
+          \begin{itemize}
+              \item \textbf{Iteración 1: Registro de Usuarios (Backend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 10 de julio de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 16 de julio de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del backend para el registro de usuarios
+                                  \item Pruebas unitarias y de integración para el registro de usuarios
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item API funcional para el registro de usuarios
+                                  \item Pruebas unitarias para el registro de usuarios
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 2: Gestión de Usuarios (Backend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 17 de julio de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 23 de julio de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del backend para la gestión de usuarios (CRUD)
+                                  \item Pruebas unitarias y de integración para la gestión de usuarios
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item API funcional para la gestión de usuarios
+                                  \item Pruebas unitarias para la gestión de usuarios
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 3: Inicio de Sesión (Backend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 24 de julio de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 30 de julio de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del backend para el inicio de sesión
+                                  \item Pruebas unitarias y de integración para el inicio de sesión
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item API funcional para el inicio de sesión
+                                  \item Pruebas unitarias para el inicio de sesión
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 4: Recuperación de Contraseñas (Backend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 31 de julio de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 6 de agosto de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del backend para la recuperación de contraseñas
+                                  \item Pruebas unitarias y de integración para la recuperación de contraseñas
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item API funcional para la recuperación de contraseñas
+                                  \item Pruebas unitarias para la recuperación de contraseñas
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 5: Generación de Tokens JWT (Backend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 7 de agosto de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 13 de agosto de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del backend para la generación de tokens JWT
+                                  \item Pruebas unitarias y de integración para la generación de tokens JWT
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item API funcional para la generación de tokens JWT
+                                  \item Pruebas unitarias para la generación de tokens JWT
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 6: Verificación de Correo Electrónico (Backend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 14 de agosto de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 20 de agosto de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del backend para la verificación de correo electrónico
+                                  \item Pruebas unitarias y de integración para la verificación de correo electrónico
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item API funcional para la verificación de correo electrónico
+                                  \item Pruebas unitarias para la verificación de correo electrónico
+                              \end{itemize}
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Fase de Desarrollo (Frontend)}
+          \begin{itemize}
+              \item \textbf{Iteración 7: Registro de Usuarios (Frontend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 21 de agosto de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 27 de agosto de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del frontend para el registro de usuarios
+                                  \item Pruebas unitarias y de integración para el frontend de registro de usuarios
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item Interfaz de usuario funcional para el registro de usuarios
+                                  \item Pruebas unitarias para el frontend
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 8: Inicio de Sesión (Frontend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 28 de agosto de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 3 de septiembre de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del frontend para el inicio de sesión
+                                  \item Pruebas unitarias y de integración para el frontend de inicio de sesión
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item Interfaz de usuario funcional para el inicio de sesión
+                                  \item Pruebas unitarias para el frontend
+                              \end{itemize}
+                    \end{itemize}
+
+              \item \textbf{Iteración 9: Recuperación de Contraseñas (Frontend)}
+                    \begin{itemize}
+                        \item \textbf{Inicio}: 4 de septiembre de 2024
+                        \item \textbf{Duración}: 1 semana
+                        \item \textbf{Fin}: 10 de septiembre de 2024
+                        \item \textbf{Actividades Principales}:
+                              \begin{itemize}
+                                  \item Desarrollo del frontend para la recuperación de contraseñas
+                                  \item Pruebas unitarias y de integración para el frontend de recuperación de contraseñas
+                              \end{itemize}
+                        \item \textbf{Entregables}:
+                              \begin{itemize}
+                                  \item Interfaz de usuario funcional para la recuperación de contraseñas
+                                  \item Pruebas unitarias para el frontend
+                              \end{itemize}
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Fase de Despliegue}
+          \begin{itemize}
+              \item \textbf{Inicio}: 11 de septiembre de 2024
+              \item \textbf{Duración}: 1 semana
+              \item \textbf{Fin}: 17 de septiembre de 2024
+              \item \textbf{Actividades Principales}:
+                    \begin{itemize}
+                        \item Despliegue en el entorno de producción (11 de septiembre - 13 de septiembre)
+                        \item Verificación de despliegue (14 de septiembre - 17 de septiembre)
+                    \end{itemize}
+              \item \textbf{Entregables}:
+                    \begin{itemize}
+                        \item Microservicio desplegado en producción
+                        \item Verificación de despliegue exitosa
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+\newpage
+
+\section{Recursos y Roles}
+
+\subsection{Equipo del Proyecto y Responsabilidades}
+
+\begin{itemize}
+    \item \textbf{Líder del Proyecto}
+          \begin{itemize}
+              \item \textbf{Responsabilidades}:
+                    \begin{itemize}
+                        \item Supervisar el progreso del proyecto.
+                        \item Coordinar las actividades del equipo.
+                        \item Asegurar que los objetivos del proyecto se cumplan en tiempo y forma.
+                        \item Comunicarse con las partes interesadas.
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Desarrollador Backend}
+          \begin{itemize}
+              \item \textbf{Responsabilidades}:
+                    \begin{itemize}
+                        \item Desarrollar las APIs del microservicio de autenticación.
+                        \item Implementar la lógica de negocio para el registro, login y recuperación de contraseñas.
+                        \item Escribir pruebas unitarias y de integración.
+                        \item Garantizar la seguridad y eficiencia del backend.
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Desarrollador Frontend}
+          \begin{itemize}
+              \item \textbf{Responsabilidades}:
+                    \begin{itemize}
+                        \item Desarrollar la interfaz de usuario para el registro, login y recuperación de contraseñas.
+                        \item Integrar el frontend con las APIs del backend.
+                        \item Escribir pruebas unitarias y de integración para el frontend.
+                        \item Asegurar una experiencia de usuario fluida y eficiente.
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Ingeniero DevOps}
+          \begin{itemize}
+              \item \textbf{Responsabilidades}:
+                    \begin{itemize}
+                        \item Configurar y mantener el entorno de desarrollo y producción.
+                        \item Implementar pipelines de CI/CD.
+                        \item Monitorear el desempeño del sistema y gestionar la infraestructura.
+                        \item Asegurar la disponibilidad y escalabilidad del sistema.
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{Tester/QA}
+          \begin{itemize}
+              \item \textbf{Responsabilidades}:
+                    \begin{itemize}
+                        \item Realizar pruebas funcionales y no funcionales.
+                        \item Ejecutar pruebas de aceptación y reportar defectos.
+                        \item Validar que las funcionalidades cumplan con los requisitos especificados.
+                        \item Colaborar con los desarrolladores para resolver problemas encontrados durante las pruebas.
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
+\subsection{Recursos Necesarios}
+
+\begin{itemize}
+    \item \textbf{Herramientas de Desarrollo}
+          \begin{itemize}
+              \item \textbf{IDE}: Visual Studio Code, PHPStorm.
+              \item \textbf{Lenguajes de Programación}: PHP para backend, JavaScript para frontend.
+              \item \textbf{Frameworks}: Laravel para backend, Vue.js para frontend.
+              \item \textbf{Repositorios}: GitHub para control de versiones.
+          \end{itemize}
+
+    \item \textbf{Servicios y Hosting}
+          \begin{itemize}
+              \item \textbf{Servidor Web}: NGINX para balanceo de carga y servidor web.
+              \item \textbf{Base de Datos}: PostgreSQL para almacenamiento de datos.
+              \item \textbf{Cloud Hosting}: AWS para infraestructura escalable.
+          \end{itemize}
+
+    \item \textbf{Seguridad}
+          \begin{itemize}
+              \item \textbf{Cifrado}: Certificados TLS/SSL para seguridad en tránsito.
+              \item \textbf{Autenticación}: OAuth y JWT para gestión de tokens, implementación de 2FA.
+          \end{itemize}
+
+    \item \textbf{Herramientas de CI/CD}
+          \begin{itemize}
+              \item \textbf{Integración Continua}: Jenkins para automatización de builds y despliegues.
+              \item \textbf{Despliegue Continuo}: Pipelines de CI/CD para despliegue automático en entornos de desarrollo y producción.
+          \end{itemize}
+
+    \item \textbf{Monitoreo y Logging}
+          \begin{itemize}
+              \item \textbf{Monitoreo de Rendimiento}: Prometheus y Grafana para métricas y visualización.
+              \item \textbf{Logging}: ELK Stack (ElasticSearch, Logstash, Kibana) para análisis y monitoreo de logs.
+          \end{itemize}
+\end{itemize}
+
+\newpage
+
+\section{Análisis de Riesgos}
+
+\subsection{Escala de Gravedad del Riesgo}
+
+\subsubsection{Escala de Probabilidad}
+
+\begin{itemize}
+    \item \textbf{Baja (1)}: El riesgo es poco probable que ocurra.
+    \item \textbf{Media (2)}: El riesgo tiene una posibilidad moderada de ocurrir.
+    \item \textbf{Alta (3)}: El riesgo es muy probable que ocurra.
+\end{itemize}
+
+\subsubsection{Escala de Impacto}
+
+\begin{itemize}
+    \item \textbf{Bajo (1)}: El impacto del riesgo en el proyecto es mínimo y fácil de manejar.
+    \item \textbf{Moderado (2)}: El impacto del riesgo puede causar problemas significativos pero manejables.
+    \item \textbf{Alto (3)}: El impacto del riesgo puede ser devastador para el proyecto, causando grandes retrasos o fallos críticos.
+\end{itemize}
+
+\subsection{Identificación y Evaluación de Riesgos Potenciales}
+
+\subsubsection{Riesgos del Proyecto}
+
+\begin{itemize}
+    \item \textbf{Cambio de Requisitos: Seguridad}
+          \begin{itemize}
+              \item \textbf{Descripción}: Los requisitos de seguridad del proyecto pueden cambiar debido a nuevas necesidades o descubrimientos de vulnerabilidades.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Cambio de Requisitos: Escalabilidad}
+          \begin{itemize}
+              \item \textbf{Descripción}: Los requisitos de escalabilidad del proyecto pueden cambiar debido a un aumento inesperado en la cantidad de usuarios.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Cambio de Requisitos: Integración}
+          \begin{itemize}
+              \item \textbf{Descripción}: Los requisitos de integración del proyecto pueden cambiar debido a la necesidad de soportar nuevas aplicaciones cliente.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Falta de Comunicación con Partes Interesadas}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas de comunicación pueden surgir con las partes interesadas, causando malentendidos y retrasos.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Desgaste del Equipo por Alta Carga de Trabajo}
+          \begin{itemize}
+              \item \textbf{Descripción}: La alta carga de trabajo puede afectar la moral y la productividad de la persona a cargo.
+              \item \textbf{Probabilidad}: 3 (Alta)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Desgaste del Equipo por Plazos Ajustados}
+          \begin{itemize}
+              \item \textbf{Descripción}: La presión para cumplir con plazos ajustados puede afectar la moral y la productividad de la persona a cargo.
+              \item \textbf{Probabilidad}: 3 (Alta)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Falta de Redundancia: Indisponibilidad del Personal}
+          \begin{itemize}
+              \item \textbf{Descripción}: La falta de personal adicional significa que si la persona a cargo está indisponible, el proyecto puede verse seriamente afectado.
+              \item \textbf{Probabilidad}: 3 (Alta)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Riesgos Técnicos}
+
+\begin{itemize}
+    \item \textbf{Problemas de Calidad: Pruebas Inadecuadas}
+          \begin{itemize}
+              \item \textbf{Descripción}: La falta de pruebas adecuadas puede resultar en la entrega de un microservicio con defectos.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Problemas de Calidad: Defectos en Autenticación}
+          \begin{itemize}
+              \item \textbf{Descripción}: Defectos en el manejo de la autenticación pueden comprometer la seguridad del sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Problemas de Calidad: Defectos en Gestión de Usuarios}
+          \begin{itemize}
+              \item \textbf{Descripción}: Defectos en la gestión de usuarios pueden llevar a la pérdida o corrupción de datos.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Problemas de Calidad: Defectos en API}
+          \begin{itemize}
+              \item \textbf{Descripción}: Defectos en las APIs pueden resultar en fallos de integración con las aplicaciones cliente.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Problemas de Calidad: Defectos en Seguridad}
+          \begin{itemize}
+              \item \textbf{Descripción}: Defectos en la implementación de medidas de seguridad pueden dejar el sistema vulnerable a ataques.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Problemas de Compatibilidad de Software}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas de compatibilidad entre diferentes versiones de software y bibliotecas utilizadas pueden causar fallos en el sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Complejidad del Código}
+          \begin{itemize}
+              \item \textbf{Descripción}: La programación orientada a eventos puede llevar a un código más complejo y difícil de mantener debido a la naturaleza asíncrona y las múltiples fuentes de eventos.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Problemas de Debugging}
+          \begin{itemize}
+              \item \textbf{Descripción}: La depuración de aplicaciones orientadas a eventos puede ser más difícil debido a la falta de una secuencia clara de ejecución.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Condiciones de Carrera}
+          \begin{itemize}
+              \item \textbf{Descripción}: La naturaleza asíncrona de la EDP puede introducir condiciones de carrera, donde dos o más eventos intentan acceder o modificar el mismo recurso al mismo tiempo.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Bloqueos y Errores Difíciles de Reproducir}
+          \begin{itemize}
+              \item \textbf{Descripción}: Los errores en aplicaciones orientadas a eventos pueden ser difíciles de reproducir y diagnosticar, especialmente cuando dependen de la interacción de múltiples eventos.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Riesgos de Seguridad}
+
+\begin{itemize}
+    \item \textbf{Exposición de Datos Sensibles}
+          \begin{itemize}
+              \item \textbf{Descripción}: Fallos en la seguridad pueden resultar en la exposición de datos sensibles de los usuarios.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Ataques de Fuerza Bruta}
+          \begin{itemize}
+              \item \textbf{Descripción}: El sistema puede ser vulnerable a ataques de fuerza bruta en las contraseñas.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Phishing}
+          \begin{itemize}
+              \item \textbf{Descripción}: Usuarios pueden ser víctimas de ataques de phishing, comprometiendo sus credenciales.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Vulnerabilidades en Bibliotecas Externas}
+          \begin{itemize}
+              \item \textbf{Descripción}: Las bibliotecas externas pueden tener vulnerabilidades que pueden ser explotadas por atacantes.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Riesgos de Escalabilidad y Rendimiento}
+
+\begin{itemize}
+    \item \textbf{Degradación del Rendimiento Bajo Alta Carga}
+          \begin{itemize}
+              \item \textbf{Descripción}: El sistema puede no manejar adecuadamente un aumento repentino en la carga de usuarios y solicitudes.
+              \item \textbf{Probabilidad}: 3 (Alta)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Limitaciones de Escalabilidad Horizontal}
+          \begin{itemize}
+              \item \textbf{Descripción}: El diseño del sistema puede no soportar escalabilidad horizontal efectiva.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Problemas de Tiempo de Respuesta}
+          \begin{itemize}
+              \item \textbf{Descripción}: Aumento en el tiempo de respuesta bajo alta carga de usuarios puede afectar la experiencia del usuario.
+              \item \textbf{Probabilidad}: 3 (Alta)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Sobrecarga de Eventos}
+          \begin{itemize}
+              \item \textbf{Descripción}: Un exceso de eventos puede sobrecargar el sistema, provocando una disminución del rendimiento o incluso fallos en el sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Latencia en el Procesamiento de Eventos}
+          \begin{itemize}
+              \item \textbf{Descripción}: La latencia en el procesamiento de eventos puede afectar la experiencia del usuario, especialmente en sistemas que requieren respuestas en tiempo real.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Riesgos de Integración}
+
+\begin{itemize}
+    \item \textbf{Incompatibilidad con APIs Existentes}
+          \begin{itemize}
+              \item \textbf{Descripción}: Incompatibilidades con las APIs existentes pueden causar problemas en la integración con aplicaciones cliente.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Errores en la Comunicación entre Servicios}
+          \begin{itemize}
+              \item \textbf{Descripción}: Errores en la comunicación entre microservicios pueden llevar a fallos en el sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Compatibilidad de Eventos entre Sistemas}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas de compatibilidad entre los eventos generados por diferentes sistemas pueden causar errores en la integración.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Manejo de Eventos No Previstos}
+          \begin{itemize}
+              \item \textbf{Descripción}: La aparición de eventos no previstos puede llevar a comportamientos inesperados o errores en el sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Riesgos de Disponibilidad}
+
+\begin{itemize}
+    \item \textbf{Interrupciones en Servicios Externos}
+          \begin{itemize}
+              \item \textbf{Descripción}: Caídas o interrupciones en los servicios externos (por ejemplo, AWS, Redis) pueden afectar la disponibilidad del sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Limitaciones de Capacidad en Servicios Externos}
+          \begin{itemize}
+              \item \textbf{Descripción}: Limitaciones en los servicios de nube utilizados pueden afectar la disponibilidad y escalabilidad del sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Dependencia de Herramientas de CI/CD}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas con herramientas de CI/CD pueden retrasar el despliegue y la integración continua.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Dependencia de Laravel}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas o actualizaciones incompatibles en Laravel pueden afectar el desarrollo y mantenimiento del backend.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Dependencia de Vue.js}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas o actualizaciones incompatibles en Vue.js pueden afectar el desarrollo y mantenimiento del frontend.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Interrupciones de Servicio por Mantenimiento}
+          \begin{itemize}
+              \item \textbf{Descripción}: Mantenimiento no planificado puede causar interrupciones en el servicio.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 2 (Moderado)
+          \end{itemize}
+
+    \item \textbf{Caídas del Servidor}
+          \begin{itemize}
+              \item \textbf{Descripción}: Problemas de infraestructura pueden resultar en caídas del servidor y pérdida de disponibilidad del servicio.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Limitaciones de Capacidad en Servicios de Nube}
+          \begin{itemize}
+              \item \textbf{Descripción}: Limitaciones en los servicios de nube utilizados pueden afectar la disponibilidad y escalabilidad del sistema.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Riesgos Legales y Regulatorios}
+
+\begin{itemize}
+    \item \textbf{Incumplimiento de Normativas de Privacidad de Datos}
+          \begin{itemize}
+              \item \textbf{Descripción}: Fallos en el cumplimiento de las normativas de privacidad de datos pueden resultar en sanciones.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Problemas de Propiedad Intelectual}
+          \begin{itemize}
+              \item \textbf{Descripción}: Uso no autorizado de bibliotecas o herramientas de software puede llevar a problemas de propiedad intelectual.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+
+    \item \textbf{Incumplimiento de Licencias de Software}
+          \begin{itemize}
+              \item \textbf{Descripción}: Uso incorrecto o no autorizado de bibliotecas o herramientas de software puede llevar a problemas legales.
+              \item \textbf{Probabilidad}: 2 (Media)
+              \item \textbf{Impacto}: 3 (Alto)
+          \end{itemize}
+\end{itemize}
+
+\end{document}
