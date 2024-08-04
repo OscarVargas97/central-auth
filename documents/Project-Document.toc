@@ -1,0 +1,51 @@
+\contentsline {section}{\numberline {1}Resumen Ejecutivo}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Objetivos del Proyecto}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Importancia del Proyecto}{3}{}%
+\contentsline {subsection}{\numberline {1.3}Resumen de los Puntos Principales del Documento}{4}{}%
+\contentsline {section}{\numberline {2}Visión del Proyecto}{6}{}%
+\contentsline {section}{\numberline {3}Introducción}{7}{}%
+\contentsline {subsection}{\numberline {3.1}Contexto del Proyecto}{7}{}%
+\contentsline {subsection}{\numberline {3.2}Objetivos del Proyecto}{7}{}%
+\contentsline {subsection}{\numberline {3.3}Alcance del Proyecto}{7}{}%
+\contentsline {subsection}{\numberline {3.4}Alcance del Producto}{8}{}%
+\contentsline {subsection}{\numberline {3.5}Estructura del Documento}{8}{}%
+\contentsline {section}{\numberline {4}Descripción del Proyecto}{9}{}%
+\contentsline {subsection}{\numberline {4.1}Detalles Técnicos del Proyecto}{9}{}%
+\contentsline {subsubsection}{\numberline {4.1.1}Estructura Técnica General}{9}{}%
+\contentsline {paragraph}{API Gateway}{9}{}%
+\contentsline {paragraph}{Servicio de Autenticación}{9}{}%
+\contentsline {paragraph}{Servicio de Gestión de Usuarios}{10}{}%
+\contentsline {paragraph}{Bus de Eventos}{10}{}%
+\contentsline {paragraph}{Base de Datos Central}{10}{}%
+\contentsline {subsubsection}{\numberline {4.1.2}Interacción entre Componentes}{11}{}%
+\contentsline {subsubsection}{\numberline {4.1.3}Integración con Otros Sistemas}{11}{}%
+\contentsline {subsubsection}{\numberline {4.1.4}Ampliación de la Interacción entre Componentes}{11}{}%
+\contentsline {subsubsection}{\numberline {4.1.5}Escalabilidad y Disponibilidad}{12}{}%
+\contentsline {subsubsection}{\numberline {4.1.6}Seguridad}{12}{}%
+\contentsline {subsection}{\numberline {4.2}Funcionalidades Clave}{12}{}%
+\contentsline {subsection}{\numberline {4.3}Tecnologías a Utilizar}{13}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}Lenguajes de Programación}{13}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Frameworks}{14}{}%
+\contentsline {subsubsection}{\numberline {4.3.3}Bases de Datos}{14}{}%
+\contentsline {subsubsection}{\numberline {4.3.4}Servidores y Hosting}{14}{}%
+\contentsline {subsubsection}{\numberline {4.3.5}Seguridad}{14}{}%
+\contentsline {subsubsection}{\numberline {4.3.6}Herramientas de Desarrollo y CI/CD}{14}{}%
+\contentsline {subsubsection}{\numberline {4.3.7}Servicios de Mensajería}{14}{}%
+\contentsline {subsubsection}{\numberline {4.3.8}Monitoreo y Logging}{14}{}%
+\contentsline {section}{\numberline {5}Planificación del Proyecto}{15}{}%
+\contentsline {subsection}{\numberline {5.1}Cronograma Detallado (Timeline)}{15}{}%
+\contentsline {section}{\numberline {6}Recursos y Roles}{19}{}%
+\contentsline {subsection}{\numberline {6.1}Equipo del Proyecto y Responsabilidades}{19}{}%
+\contentsline {subsection}{\numberline {6.2}Recursos Necesarios}{20}{}%
+\contentsline {section}{\numberline {7}Análisis de Riesgos}{21}{}%
+\contentsline {subsection}{\numberline {7.1}Escala de Gravedad del Riesgo}{21}{}%
+\contentsline {subsubsection}{\numberline {7.1.1}Escala de Probabilidad}{21}{}%
+\contentsline {subsubsection}{\numberline {7.1.2}Escala de Impacto}{21}{}%
+\contentsline {subsection}{\numberline {7.2}Identificación y Evaluación de Riesgos Potenciales}{21}{}%
+\contentsline {subsubsection}{\numberline {7.2.1}Riesgos del Proyecto}{21}{}%
+\contentsline {subsubsection}{\numberline {7.2.2}Riesgos Técnicos}{22}{}%
+\contentsline {subsubsection}{\numberline {7.2.3}Riesgos de Seguridad}{24}{}%
+\contentsline {subsubsection}{\numberline {7.2.4}Riesgos de Escalabilidad y Rendimiento}{25}{}%
+\contentsline {subsubsection}{\numberline {7.2.5}Riesgos de Integración}{25}{}%
+\contentsline {subsubsection}{\numberline {7.2.6}Riesgos de Disponibilidad}{26}{}%
+\contentsline {subsubsection}{\numberline {7.2.7}Riesgos Legales y Regulatorios}{27}{}%
